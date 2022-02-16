@@ -1,5 +1,7 @@
 class PeopleController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_person, only: %i[ show edit update destroy ]
+  before_action :correct_user, only: %i[ index show edit update destroy ]
 
   # GET /people or /people.json
   def index
@@ -12,7 +14,7 @@ class PeopleController < ApplicationController
 
   # GET /people/new
   def new
-    @person = Person.new
+    @person = current_user.person.build
   end
 
   # GET /people/1/edit
@@ -21,7 +23,7 @@ class PeopleController < ApplicationController
 
   # POST /people or /people.json
   def create
-    @person = Person.new(person_params)
+    @person = current_user.person.build(person_params)
 
     respond_to do |format|
       if @person.save
@@ -63,8 +65,13 @@ class PeopleController < ApplicationController
       @person = Person.find(params[:id])
     end
 
+    def correct_user
+      @person = current_user.person.find_by(id: params[:id])
+      # redirect_to edit_user_registration_path, notice: "Not an Authorised User" if @person.nil?
+    end
+
     # Only allow a list of trusted parameters through.
     def person_params
-      params.require(:person).permit(:name, :ph_no)
+      params.require(:person).permit(:name, :ph_no, :user_id)
     end
 end

@@ -1,7 +1,9 @@
- <div class="title">
-  <%= address.title %>
-</div>
-<div class="author">
-  <%= address.address %>
+<div class="card mr-2 mt-2" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title"><%= address.title.capitalize %></h5>
+    <p class="card-text"><%= address.address %></p>
+    <!-- <%= link_to "Edit", edit_address_path(address), person: @person, class:"card-link" %> -->
+    <%= link_to "Delete", address, method: :delete, data: { confirm: 'Are you sure?' }, class:"card-link btn btn-danger" %>
+  </div>
 </div>
 <br />
