@@ -1,21 +1,28 @@
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @person.name %>
-</p>
-
-<p>
-  <strong>Ph no:</strong>
-  <%= @person.ph_no %>
-</p>
-
-<% @person.address.each do |address| %>
-  <%= render 'addresses/addresses', address: address %>
-<% end %>
-
-
-
-<%= link_to 'Edit', edit_person_path(@person) %> |
-<%= link_to 'Back', people_path %>
-<%= render 'addresses/form', address: @address, address: Address.new, person: @person %>
+<div class="container" style="width: 70%;">
+  <div class="row">
+    <div class="col-md-6">
+      <p>
+        <h4>Name:</h4>
+        <h3 style="color: blue;"><%= @person.name %></h3>
+      </p>
+      <p>
+        <h4>Phone no:</h4>
+        <h3 style="color: blue;"><%= @person.ph_no %></h3>
+      </p>
+      <p>
+        <%= link_to 'Edit', edit_person_path(@person), class: 'btn btn-primary' %> |
+        <%= link_to 'Back', people_path, class: 'btn btn-primary' %>
+      </p>
+    </div>
+    <div class="col-md-6">
+      <%= render 'addresses/form', address: @address, address: Address.new, person: @person %>
+    </div>
+  </div>
+  <div class="row mt-4 mb-2">
+    <% @person.address.each do |address| %>
+      <%= render 'addresses/addresses', address: address %>
+    <% end %>
+  </div>
+  
+</div>

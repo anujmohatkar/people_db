@@ -10,18 +10,20 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :ph_no %>
-    <%= form.text_field :ph_no %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
+  <div class="row mt-4">
+    <div class="col-md-5">
+      <div class="form-field">
+        <%= form.text_field :name, class: 'form_control', placeholder: "Name" %>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div class="field">
+        <%= form.text_field :ph_no, placeholder: "Phone Number", class: 'form_control' %>
+      </div>   
+      <%= form.hidden_field :user_id, value: current_user.id %>
+    </div>
+    <div class="col-md-2">
+      <%= form.submit class:'btn btn-success'%>
+    </div>
   </div>
 <% end %>

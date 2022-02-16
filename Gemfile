@@ -54,3 +54,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # To use environment-variables
 gem 'dotenv-rails', groups: [:development, :test]
+
+# For user Authentication
+gem 'devise', '~> 4.8', '>= 4.8.1'

@@ -1,6 +1,10 @@
-<h1>Editing Person</h1>
+<div class="mt-4">
+  <div class="container mt-4 w50">
+    <h1>Editing Student</h1>
 
-<%= render 'form', person: @person %>
+    <%= render 'form', person: @person %>
 
-<%= link_to 'Show', @person %> |
-<%= link_to 'Back', people_path %>
+    <%= link_to 'Show', @person, class: 'btn btn-primary mt-3' %>
+    <%= link_to 'Back', people_path, class: 'btn btn-primary mt-3 ml-2' %>
+  </div>
+</div>
