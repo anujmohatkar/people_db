@@ -5,3 +5,25 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'faker'
+
+500.times do |person|
+
+  Person.create!(
+      name: Faker::Name.name,
+      ph_no: Faker::PhoneNumber.cell_phone_in_e164,
+      user_id: User.last.id
+    )
+  Address.create!(
+      title: "Home",
+      address: Faker::Address.full_address,
+      person_id: Person.last.id
+    )
+  Address.create!(
+      title: "Work",
+      address: Faker::Address.full_address,
+      person_id: Person.last.id
+    )
+end
+
+puts "500 person created, 1000 Addresses created."

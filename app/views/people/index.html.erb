@@ -6,7 +6,6 @@
       <tr>
         <th scope="col">Name</th>
         <th scope="col">Phone Number</th>
-        <th scope="col">No. of Address</th>
         <th scope="col">Show</th>
         <th scope="col">Edit</th>
         <th scope="col">Delete</th>
@@ -18,10 +17,14 @@
           <tr>
             <td><%= link_to person.name, person %></td>
             <td><%= person.ph_no %></td>
-            <td><%= person.address.count %></td>
             <td><%= link_to 'Show', person %></td>
             <td><%= link_to 'Edit', edit_person_path(person) %></td>
             <td><%= link_to 'Destroy', person, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+          <tr>
+            <% person.address.each do |address| %>
+              <%= render 'addresses/table_address', address: address %>
+            <% end %>
           </tr>
         <% end %> 
       <% end %>
