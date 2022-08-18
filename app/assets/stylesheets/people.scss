@@ -1,3 +1,43 @@
 // Place all the styles related to the People controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+#playToggle[data-state='playing'] .play {
+    display: none;
+  }
+  #playToggle[data-state='paused'] .pause {
+    display: none;
+  }
+  :root {
+    --gray-600: #718096;
+    --gray-400: #cbd5e0;
+    --gray-200: #edf2f7;
+    --purple-500: #9f7aea;
+    --green-500: #48bb78;
+    --blue-500: #4299e1;
+  }
+  progress {
+    background-color: var(--gray-600);
+  }
+  progress::-moz-progress-bar {
+    background-color: var(--gray-200);
+  }
+  #playback-bar:hover progress::-moz-progress-bar {
+    background-color: var(--blue-500);
+  }
+  input[type=range]::-moz-range-thumb,
+  input[type=range]::-webkit-slider-thumb {
+    appearance: none;
+    background: var(gray-200);
+    border: none;
+    opacity: 0;
+    width: 5px;
+  }
+  #playback-bar:hover input[type=range]::-moz-range-thumb,
+  #playback-bar:hover input[type=range]::-webkit-slider-thumb {
+    opacity: 1;
+  }
+  #currentTime,
+  #durationTime {
+    font-feature-settings: 'tnum';
+  }
+  

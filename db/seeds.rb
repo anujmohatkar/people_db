@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'faker'
 
-500.times do |person|
+50.times do |person|
 
   Person.create!(
       name: Faker::Name.name,
@@ -26,4 +26,4 @@ require 'faker'
     )
 end
 
-puts "500 person created, 1000 Addresses created."
+puts "50 person created, 100 Addresses created."

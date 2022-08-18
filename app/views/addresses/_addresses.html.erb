@@ -1,9 +1,142 @@
-<div class="card mr-2 mt-2" style="width: 18rem;">
+<% require 'securerandom' %>
+<% audioplayer = SecureRandom.hex(10) %>
+<% timeline = SecureRandom.hex(10) %>
+<% progress = SecureRandom.hex(10) %>
+
+<div class="card">
+  <div class="card-header">
+    <%= address.title.capitalize %>
+  </div>
   <div class="card-body">
     <h5 class="card-title"><%= address.title.capitalize %></h5>
     <p class="card-text"><%= address.address %></p>
-    <!-- <%= link_to "Edit", edit_address_path(address), person: @person, class:"card-link" %> -->
     <%= link_to "Delete", address, method: :delete, data: { confirm: 'Are you sure?' }, class:"card-link btn btn-danger" %>
+  </div>
+  <div class="card-footer text-muted">
+      <div class="audio-player" id="<%= audioplayer %>" >
+        <div class="timeline">
+          <div class="progress <%= progress %>"></div>
+        </div>
+        <div class="controls">
+          <div class="play-container">
+            <div class="toggle-play play">
+          </div>
+          </div>
+          <div class="time">
+            <div class="current">0:00</div>
+            <div class="divider">/</div>
+            <div class="length"></div>
+          </div>
+          <div class="name">Music Song</div>
+      <!--     credit for icon to https://saeedalipoor.github.io/icono/ -->
+          <div class="volume-container">
+            <div class="volume-button">
+              <div class="volume icono-volumeMedium"></div>
+            </div>
+            
+            <div class="volume-slider">
+              <div class="volume-percentage"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+      // Possible improvements:
+      // - Change timeline and volume slider into input sliders, reskinned
+      // - Change into Vue or React component
+      // - Be able to grab a custom title instead of "Music Song"
+      // - Hover over sliders to see preview of timestamp/volume change
+
+      const audioPlayer<%= audioplayer %> = document.getElementById("<%= audioplayer %>");
+      const audio<%= audioplayer %> = new Audio(
+        "<%= url_for(address.audio) %>"
+      );
+      //credit for song: Adrian kreativaweb@gmail.com
+
+      console.dir(audio<%= audioplayer %>);
+
+      audio<%= audioplayer %>.addEventListener(
+        "loadeddata",
+        () => {
+          audioPlayer<%= audioplayer %>.querySelector(".time .length").textContent = getTimeCodeFromNum(
+            audio<%= audioplayer %>.duration
+          );
+          audio<%= audioplayer %>.volume = .75;
+        },
+        false
+      );
+
+      //click on timeline to skip around
+      const timeline<%= timeline %> = audioPlayer<%= audioplayer %>.querySelector(".timeline");
+      timeline<%= timeline %>.addEventListener("click", e => {
+        const timelineWidth = window.getComputedStyle(timeline<%= timeline %>).width;
+        const timeToSeek = e.offsetX / parseInt(timelineWidth) * audio<%= audioplayer %>.duration;
+        audio.currentTime = timeToSeek;
+      }, false);
+
+      //click volume slider to change volume
+      // const volumeSlider = audioPlayer<%= audioplayer %>.querySelector(".controls .volume-slider");
+      // volumeSlider.addEventListener('click', e => {
+      //   const sliderWidth = window.getComputedStyle(volumeSlider).width;
+      //   const newVolume = e.offsetX / parseInt(sliderWidth);
+      //   audio<%= audioplayer %>.volume = newVolume;
+      //   audioPlayer<%= audioplayer %>.querySelector(".controls .volume-percentage").style.width = newVolume * 100 + '%';
+      // }, false)
+
+      //check audio percentage and update time accordingly
+      setInterval(() => {
+        const progressBar = audioPlayer<%= audioplayer %>.querySelector(".<%=progress%>");
+        progressBar.style.width = audio<%= audioplayer %>.currentTime / audio<%= audioplayer %>.duration * 100 + "%";
+        audioPlayer<%= audioplayer %>.querySelector(".time .current").textContent = getTimeCodeFromNum(
+          audio<%= audioplayer %>.currentTime
+        );
+      }, 500);
+
+      //toggle between playing and pausing on button click
+      const playBtn = audioPlayer<%= audioplayer %>.querySelector(".controls .toggle-play");
+      playBtn.addEventListener(
+        "click",
+        () => {
+          if (audio<%= audioplayer %>.paused) {
+            playBtn.classList.remove("play");
+            playBtn.classList.add("pause");
+            audio<%= audioplayer %>.play();
+          } else {
+            playBtn.classList.remove("pause");
+            playBtn.classList.add("play");
+            audio<%= audioplayer %>.pause();
+          }
+        },
+        false
+      );
+
+      audioPlayer<%= audioplayer %>.querySelector(".volume-button").addEventListener("click", () => {
+        const volumeEl = audioPlayer<%= audioplayer %>.querySelector(".volume-container .volume");
+        audio<%= audioplayer %>.muted = !audio.muted;
+        if (audio.muted) {
+          volumeEl.classList.remove("icono-volumeMedium");
+          volumeEl.classList.add("icono-volumeMute");
+        } else {
+          volumeEl.classList.add("icono-volumeMedium");
+          volumeEl.classList.remove("icono-volumeMute");
+        }
+      });
+
+      //turn 128 seconds into 2:08
+      function getTimeCodeFromNum(num) {
+        let seconds = parseInt(num);
+        let minutes = parseInt(seconds / 60);
+        seconds -= minutes * 60;
+        const hours = parseInt(minutes / 60);
+        minutes -= hours * 60;
+
+        if (hours === 0) return `${minutes}:${String(seconds % 60).padStart(2, 0)}`;
+        return `${String(hours).padStart(2, 0)}:${minutes}:${String(
+          seconds % 60
+        ).padStart(2, 0)}`;
+      }
+
+      </script>
   </div>
 </div>
 <br />

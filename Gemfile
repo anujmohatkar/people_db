@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.4'
+ruby '2.7.6'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.3'
@@ -18,13 +18,17 @@ gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
+gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
 
+
+
+
+
 # Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
+gem 'image_processing', '~> 1.2'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
@@ -41,6 +45,7 @@ group :development do
   # Can be configured to work on production as well see: https://github.com/MiniProfiler/rack-mini-profiler/blob/master/README.md
   gem 'rack-mini-profiler', '~> 2.0'
   gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
+  
 end
 
 group :test do
@@ -59,3 +64,15 @@ gem 'dotenv-rails', groups: [:development, :test]
 
 # For user Authentication
 gem 'devise', '~> 4.8', '>= 4.8.1'
+
+# To use Turbo in application to boost web page load speeds
+gem 'turbo-rails', '~> 1.0', '>= 1.0.1'
+
+# To use Blazer
+gem "blazer"
+
+# to try notifications
+gem 'noticed', '~> 1.5', '>= 1.5.9'
+gem "importmap-rails", "~> 1.1"
+
+gem 'securerandom'
